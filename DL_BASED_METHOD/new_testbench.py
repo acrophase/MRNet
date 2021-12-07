@@ -35,14 +35,14 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import Huber
 import matplotlib.pyplot as plt
 import datetime
-
+import sys
 
 srate = 700
 win_length = 32*srate
 train_test_split_id = 13
 num_epochs = 100
 #config = input("Enter the configuration :")
-data_path = '/media/acrophase/pose1/charan/BR_Uncertainty/ppg_dalia_data'
+data_path = '/media/acrophase/pose1/charan/MultiRespDL/ppg_dalia_data'
 data = extract_data(data_path , srate , win_length)
 
 #saved_model_path = os.path.join( 
@@ -95,7 +95,7 @@ with open('output','rb') as f:
 with open('input','rb') as f:
     input_data = pkl.load(f)
 
-with open('raw_signal.pkl','rb') as f:
+with open('raw_signal_2.pkl','rb') as f:
     raw_data = pkl.load(f)
 
 input_data = np.transpose(input_data, (0,2,1))
@@ -105,7 +105,7 @@ input_data = np.around(input_data , decimals = 4)
 raw_data = np.around(raw_data , decimals = 4)
 output_data = np.around(output_data , decimals = 4)
 
-annotation = pd.read_pickle('/media/acrophase/pose1/charan/BR_Uncertainty/DL_BASED_METHOD/annotation.pkl')
+annotation = pd.read_pickle('/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
 reference_rr = (annotation['Reference_RR'].values).reshape(-1,1)
 reference_rr = np.around(reference_rr , decimals = 4)
 
@@ -138,7 +138,7 @@ for item in config_list:
         model_input_shape = (2048,3)
         model  = BRUnet_raw_encoder(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/Sentinel_1/charan/BR_Uncertainty/DL_BASED_METHOD/TEST_SAVE_MODEL'
+        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)
@@ -207,7 +207,7 @@ for item in config_list:
         model_input_shape = (2048,3)
         model  = BRUnet_raw_multi(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/Sentinel_1/charan/BR_Uncertainty/DL_BASED_METHOD/TEST_SAVE_MODEL'
+        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)        
@@ -278,7 +278,7 @@ for item in config_list:
         model_input_shape = (128,3)
         model  = BRUnet(model_input_shape)
         optimizer = Adam(learning_rate = lr)
-        save_path = '/media/acrophase/Sentinel_1/charan/BR_Uncertainty/DL_BASED_METHOD/TEST_SAVE_MODEL'
+        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results)
@@ -353,7 +353,7 @@ for item in config_list:
         model_input_shape = (128,3)
         model  = BRUnet_Encoder(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/pose1/charan/BR_Uncertainty/DL_BASED_METHOD/TEST_SAVE_MODEL'
+        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)
@@ -421,7 +421,7 @@ for item in config_list:
         model_input_shape = (128,3)
         model  = BRUnet_Multi_resp(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/Sentinel_1/charan/BR_Uncertainty/DL_BASED_METHOD/TEST_SAVE_MODEL'
+        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)        
@@ -497,7 +497,7 @@ for item in config_list:
         model_input_shape = (2048,3)
         model  = BRUnet_raw(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/pose1/charan/BR_Uncertainty/DL_BASED_METHOD/TEST_SAVE_MODEL'
+        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)
