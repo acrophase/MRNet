@@ -41,6 +41,7 @@ import sys
 srate = 700
 win_length = 32*srate
 num_epochs = 100
+train_test_split_id = 13
 #config = input("Enter the configuration :")
 data_path = '/media/acrophase/pose1/charan/BR_Uncertainty/ppg_dalia_data'
 data = extract_data(data_path , srate , win_length)
@@ -98,8 +99,6 @@ with open('input','rb') as f:
 with open('raw_signal_2.pkl','rb') as f:
     raw_data = pkl.load(f)
 
-print(raw_data)
-sys.exit()
 input_data = np.transpose(input_data, (0,2,1))
 raw_data = np.transpose(raw_data, (0,2,1))
 
@@ -116,7 +115,7 @@ tensor_output = tf.convert_to_tensor(output_data , dtype = 'float32')
 tensor_ref_rr = tf.convert_to_tensor(reference_rr, dtype = 'float32')
 tensor_raw_data = tf.convert_to_tensor(raw_data, dtype = 'float32')
 
-training_ids = annotation['patient_id'] < 13
+training_ids = annotation['patient_id'] < train_test_split_id
 
 x_train_data = tensor_input[tf.convert_to_tensor(training_ids.values)]
 x_test_data = tensor_input[tf.convert_to_tensor(~(training_ids.values))]
@@ -133,7 +132,7 @@ lr = 1e-5
 optimizer = Adam(learning_rate = lr) 
 model  = CNN(model_input_shape)
 loss_fn = Huber()
-save_path = '/media/acrophase/pose1/charan/BR_Uncertainty/DAYI_BIAN/SAVED_MODELS'
+save_path = '/home/hticpose/MultiRespDL/DAYI_BIAN/SAVED_MODELS'
 results_path = os.path.join(save_path , str(lr))
 if not(os.path.isdir(results_path)):
         os.mkdir(results_path)

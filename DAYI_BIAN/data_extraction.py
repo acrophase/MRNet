@@ -20,9 +20,9 @@ def extract_data (path, srate, window_length):
     subjects = [i for i in sorted(os.listdir(path)) if not(i.endswith('pdf'))] 
     seconds_per_window = window_length / srate      
     data = {}
-    index_1 = 0
+    #index_1 = 0
     for sub_id in tqdm(subjects):
-        index_1+=1
+        #index_1+=1
         print('Subject Id is', sub_id) 
         windowed_ecg = []
         windowed_resp = []
@@ -141,8 +141,8 @@ def extract_data (path, srate, window_length):
                           'SOCCER_RESP':soccer_resp , 'CYCLING_RESP': cycling_resp , 'DRIVING_RESP': driving_resp,
                           'LUNCH_RESP':lunch_resp , 'WALKING_RESP': walking_resp , 'WORKING_RESP':working_resp  }
                           ,'ACTIVITY_ID': annotation_per_window}})
-        if index_1 == 1:
-           break 
+        #if index_1 == 1:
+        #   break 
     return data
     
 #path = 'C:/Users/ee19s/Desktop/HR/ppg_dalia_data'
