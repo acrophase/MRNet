@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from tqdm import tqdm
 
-def extract_data (path, srate, window_length):
+def extract_data (path, srate, window_length,need_pkl = False):
     '''
     Inputs --  path - path of the data.
                srate - Sampling rate
@@ -30,6 +30,9 @@ def extract_data (path, srate, window_length):
         acc_x = []
         acc_y = []
         acc_z = []
+        windowed_acc_x = []
+        windowed_acc_y = []
+        windowed_acc_z = []
         subpath = os.path.join(path , sub_id , sub_id+ ".pkl")
         subpath_activity = pd.read_csv(os.path.join(path , sub_id , sub_id+ "_activity.csv")) 
         subpath_activity = subpath_activity.rename(columns = {'# SUBJECT_ID':'subject_id'}) 
@@ -54,11 +57,11 @@ def extract_data (path, srate, window_length):
             acc_x.append(item[0])
             acc_y.append(item[1])
             acc_z.append(item[2])
-        #acc_x_axis = np.array(acc_x)
+        acc_x_axis = np.array(acc_x)
         acc_y_axis = np.array(acc_y)
         acc_z_axis = np.array(acc_z)
         #import pdb;pdb.set_trace()
-        #if model_type == 'raw_DL':
+        #if need_pkl == True:
         #    ACC = np.concatenate((acc_y_axis.reshape(-1,1), acc_z_axis.reshape(-1,1)),axis= 0)
         #else:
         ACC = acc_y_axis + acc_z_axis
@@ -71,6 +74,9 @@ def extract_data (path, srate, window_length):
             windowed_ecg.append(ECG[i*window_length : (i+1)*window_length])
             windowed_resp.append(RESP[i*window_length : (i+1)*window_length])
             windowed_acc.append(ACC[i*window_length : (i+1)*window_length])
+            windowed_acc_x.append(acc_x_axis[i*window_length : (i+1)*window_length])
+            windowed_acc_y.append(acc_y_axis[i*window_length : (i+1)*window_length])
+            windowed_acc_z.append(acc_z_axis[i*window_length : (i+1)*window_length])
             for item in rpeaks:
                 if item >= i*window_length and item < (i+1)*window_length:
                     sub_factor = i*window_length
@@ -134,14 +140,15 @@ def extract_data (path, srate, window_length):
                          'BASELINE_AMPS':baseline_amplitudes,'STAIRS_AMPS':stairs_amplitudes,'SOCCER_AMPS':soccer_amplitudes,
                          'CYCLING_AMPS':cycling_amplitudes,'DRIVING_AMPS':driving_amplitudes,'LUNCH_AMPS':lunch_amplitudes,
                          'WALKING_AMPS':walking_amplitudes,'WORKING_RPEAKS':working_amplitudes }
-                         ,'ACC':{'ACC_DATA': windowed_acc, 'BASELINE_ACC' :baseline_acc ,'STAIRS_ACC': stairs_acc, 'SOCCER_ACC': soccer_acc
+                         ,'ACC':{'ACC_DATA': windowed_acc,'ACC_X':windowed_acc_x, 'ACC_Y':windowed_acc_y, 
+                                        'ACC_Z':windowed_acc_z,'BASELINE_ACC' :baseline_acc ,'STAIRS_ACC': stairs_acc, 'SOCCER_ACC': soccer_acc
                          , 'CYCLING_ACC' : cycling_acc, 'DRIVING_ACC': driving_acc , 'LUNCH_ACC': lunch_acc , 'WALKING_ACC': walking_acc
                          , 'WORKING_ACC': working_acc}
                           ,  'RESP': {'RESP_DATA': windowed_resp, 'BASELINE_RESP' : baseline_resp, 'STAIRS_RESP':stairs_resp,
                           'SOCCER_RESP':soccer_resp , 'CYCLING_RESP': cycling_resp , 'DRIVING_RESP': driving_resp,
                           'LUNCH_RESP':lunch_resp , 'WALKING_RESP': walking_resp , 'WORKING_RESP':working_resp  }
                           ,'ACTIVITY_ID': annotation_per_window}})
-        #if index_1 == 1:
+        #if index_1 == 2:
         #   break 
     return data
     
