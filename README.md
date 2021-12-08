@@ -22,6 +22,9 @@ Different configuration using these blocks are designed as part of work. These c
 ### Quantitative Comparisons
   The comparison of the proposed model is done against the previously proposed works. The proposed model is also compared against the different configuration developed as a part 
   of work. The comparison is done in tems of Mean Square Error (MAE), Root Mean Square Error (RMSE), Parament Count (PC) and Inference time as shown in table below:
+  <p align="center">
+  <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Results.png' >
+</p>
   
  
 
