@@ -26,7 +26,7 @@ Different configuration using these blocks are designed as part of work. These c
   <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Results.png' >
 </p>
     
-  The evaluation of model is also done during different activities, as shown in the box plot below:
+  The evaluation of model is also done during different activities, also to check the degree of agreement between the estimated RR and ground truth RR the box plot is used as     shown below:
     <p align="center">
     <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Plots_boc_ba.jpg' >
      </p>
