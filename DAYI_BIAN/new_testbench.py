@@ -23,17 +23,11 @@ def set_global_determinism(seed=SEED):
 set_global_determinism(seed=SEED)
 #-----------------------------------------------------------------------------------
 import pandas as pd
-from data_extraction import *
-from resp_signal_extraction import *
-from rr_extration import *
-from sklearn.preprocessing import MinMaxScaler
-import re
 import pickle as pkl
 from model import *
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import Huber
-import evidential_deep_learning as edl
 import matplotlib.pyplot as plt
 import datetime
 import sys
@@ -42,71 +36,23 @@ srate = 700
 win_length = 32*srate
 num_epochs = 100
 train_test_split_id = 13
-#config = input("Enter the configuration :")
-data_path = '/media/acrophase/pose1/charan/BR_Uncertainty/ppg_dalia_data'
-data = extract_data(data_path , srate , win_length)
-  
-#saved_model_path = os.path.join( 
-
-for item in enumerate(data.keys()):
-    patient_id = item[1]  
-    ecg = data[patient_id]['ECG']['ECG_DATA']
-    rpeaks = data[patient_id]['ECG']['RPEAKS']
-    amps = data[patient_id]['ECG']['AMPLITUDES']
-    acc = data[patient_id]['ACC']['ACC_DATA']
-    resp = data[patient_id]['RESP']['RESP_DATA']
-    activity_id = data[patient_id]['ACTIVITY_ID']
-    scaler = MinMaxScaler()
-
-    edr_hrv , edr_rpeak , adr , ref_resp = edr_adr_extraction(acc, rpeaks , amps , resp)
-
-    for i in range(len(edr_hrv)):
-        edr_hrv[i] = np.append(edr_hrv[i] , np.zeros(128 - len(edr_hrv[i])))
-        edr_rpeak[i] = np.append(edr_rpeak[i] , np.zeros(128 - len(edr_rpeak[i])))
-        adr[i] = np.append(adr[i] , np.zeros(128 - len(adr[i])))
-        ref_resp[i] = np.append(ref_resp[i] , np.zeros(128 - len(ref_resp[i])))
-    ref_rr_duration, _ =  extremas_extraction(ref_resp)
-    ref_rr = (60*4)/ref_rr_duration
-
-    edr_hrv , edr_rpeak , adr , ref_resp = np.expand_dims(np.asarray(edr_hrv), axis = -1), np.expand_dims(np.asarray(edr_rpeak), axis = -1)\
-                               , np.expand_dims(np.asarray(adr), axis =-1) , np.expand_dims(np.asarray(ref_resp), axis =-1)
-    
-    edr_hrv = scaler.fit_transform(edr_hrv.reshape(len(edr_hrv),len(edr_hrv[0])))
-    edr_rpeak = scaler.fit_transform(edr_rpeak.reshape(len(edr_rpeak),len(edr_rpeak[0])))
-    adr = scaler.fit_transform(adr.reshape(len(adr),len(adr[0])))
-    ref_resp = scaler.fit_transform(ref_resp.reshape(len(ref_resp),len(ref_resp[0])))
-
-    windowed_inp = np.concatenate((np.expand_dims(edr_hrv, 1), np.expand_dims(edr_rpeak, 1), np.expand_dims(adr, 1)), axis = 1)
-    int_part  = re.findall(r'\d+', patient_id)
-
-    sub_activity_ids = np.hstack((ref_rr.reshape(-1,1),np.array(activity_id).reshape(-1,1), np.array([int(int_part[0])]*len(edr_hrv)).reshape(-1,1)))
-    
-    if item[0] == 0:
-        final_windowed_inp = windowed_inp
-        final_windowed_op = np.array(ref_resp)
-        final_sub_activity_ids = sub_activity_ids
-    else:
-        final_windowed_inp = np.vstack((final_windowed_inp , windowed_inp))
-        final_windowed_op = np.vstack((final_windowed_op , ref_resp))
-        final_sub_activity_ids = np.vstack((final_sub_activity_ids , sub_activity_ids))
-
 with open('output','rb') as f:
     output_data = pkl.load(f)
 
 with open('input','rb') as f:
     input_data = pkl.load(f)
 
-with open('raw_signal_2.pkl','rb') as f:
+with open('raw_signal.pkl','rb') as f:
     raw_data = pkl.load(f)
 
 input_data = np.transpose(input_data, (0,2,1))
 raw_data = np.transpose(raw_data, (0,2,1))
-
+    
 input_data = np.around(input_data , decimals = 4)
 raw_data = np.around(raw_data , decimals = 4)
 output_data = np.around(output_data , decimals = 4)
 
-annotation = pd.read_pickle('/media/acrophase/pose1/charan/BR_Uncertainty/ATTENTION/annotation.pkl')
+annotation = pd.read_pickle('/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
 reference_rr = (annotation['Reference_RR'].values).reshape(-1,1)
 reference_rr = np.around(reference_rr , decimals = 4)
 
@@ -132,7 +78,7 @@ lr = 1e-5
 optimizer = Adam(learning_rate = lr) 
 model  = CNN(model_input_shape)
 loss_fn = Huber()
-save_path = '/home/hticpose/MultiRespDL/DAYI_BIAN/SAVED_MODELS'
+save_path = '/media/acrophase/pose1/charan/BR_Uncertainty/DAYI_BIAN/SAVED_MODELS'
 results_path = os.path.join(save_path , str(lr))
 if not(os.path.isdir(results_path)):
         os.mkdir(results_path)
@@ -150,7 +96,7 @@ test_log_dir = 'evi/logs/gradient_tape/' +current_time + '/test'
 train_summary_writer = tf.summary.create_file_writer(train_log_dir)
 test_summary_writer = tf.summary.create_file_writer(test_log_dir)  
 
-print("Starting the training for : {}".format(item))
+#print("Starting the training for : {}".format(item))
 for epoch in range(num_epochs):
     print("starting the epoch : {}".format(epoch + 1))
     train_loss_list = []
