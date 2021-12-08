@@ -6,7 +6,5 @@ A Deep Learning based Multitasking model for estimation of Respiratory Rate from
 
 ### Architecture
 
-<p align="center">
-  <image src = 'RespNet2_V2.0_block_crop.png' >
-</p>
+![image](RespNet2_V2.0_block_crop.png)
 
