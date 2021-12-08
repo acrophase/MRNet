@@ -26,8 +26,7 @@ Different configuration using these blocks are designed as part of work. These c
   <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Results.png' >
 </p>
     
-   #### Evaluation during different activities
-    The evaluation of model is also done during different activities, as shown in the box plot below:
+  The evaluation of model is also done during different activities, as shown in the box plot below:
     <p align="center">
     <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/activity_plot.png' >
      </p>
