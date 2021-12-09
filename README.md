@@ -31,10 +31,10 @@ Different configuration using these blocks are designed as part of work. These c
     <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Plots_boc_ba.jpg' >
      </p>
     
-## System Setup
+## System Setup for DL_Method
         1. pip install requirement.
 
-## Steps
+## Steps for DL_Method
   -- General Steps
   * Download the dataset.
       
