@@ -31,8 +31,24 @@ Different configuration using these blocks are designed as part of work. These c
     <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Plots_boc_ba.jpg' >
      </p>
     
-## SYSTEM SETUP
-      1. pip install requirement
+## Structure
+      ### DL_Model
+      '''
+      .
+├── data_extraction.py
+├── data_file_generator.py
+├── eval_testbench.ipynb
+├── filters.py
+├── hrv_analysis
+│   ├── extract_features.py
+│   └── preprocessing.py
+├── new_testbench.py
+├── requirement.txt
+├── resp_signal_extraction.py
+├── rr_extration.py
+└── tf_model.py
+      '''
+      
 
 
 
