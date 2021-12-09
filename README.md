@@ -35,7 +35,7 @@ Different configuration using these blocks are designed as part of work. These c
         1. pip install requirement.
 
 ## Steps
-  -- General Steps
+  ### General Steps
       * Download the dataset.
       
   -- Generate the data files.
