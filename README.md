@@ -32,15 +32,17 @@ Different configuration using these blocks are designed as part of work. These c
      </p>
     
 ## System Setup
-      ### DL_Model
-          1. pip install requirement.
+        1. pip install requirement.
+### Train the model
+      Run new_testbench.py
+### Generate the data files
+      Run data_file_generator.py
+### Evaluation
+       [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
+      
+           
+      
           
-      -- To Train the model
-          Run new_testbench.py
-      -- To Generate the Datafiles
-           Run data_file_generator.py
-      -- To Evaluate
-           [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
 
 
 
