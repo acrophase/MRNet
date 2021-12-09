@@ -31,23 +31,11 @@ Different configuration using these blocks are designed as part of work. These c
     <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Plots_boc_ba.jpg' >
      </p>
     
-## Structure
+## System Setup
       ### DL_Model
-      '''
-      .
-├── data_extraction.py
-├── data_file_generator.py
-├── eval_testbench.ipynb
-├── filters.py
-├── hrv_analysis
-│   ├── extract_features.py
-│   └── preprocessing.py
-├── new_testbench.py
-├── requirement.txt
-├── resp_signal_extraction.py
-├── rr_extration.py
-└── tf_model.py
-      '''
+          1. pip install requirement.
+          2. To train the model run new_testbench.py
+          3. To evaluate download the [model](https://drive.google.com/drive/folders/1kqZdGB-CFKF90uyRJyKaDuXlA1gc0ryh?usp=sharing) and [data files]        (https://drive.google.com/drive/folders/1PIaNOR3ddFgQ0L0QK-3v3PvOojIceIZ3?usp=sharing) and run eval_testbench.ipynb
       
 
 
