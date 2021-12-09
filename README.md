@@ -34,9 +34,13 @@ Different configuration using these blocks are designed as part of work. These c
 ## System Setup
       ### DL_Model
           1. pip install requirement.
-          2. To train the model run new_testbench.py
-          3. To evaluate download the [model](https://drive.google.com/drive/folders/1kqZdGB-CFKF90uyRJyKaDuXlA1gc0ryh?usp=sharing) and [data files]        (https://drive.google.com/drive/folders/1PIaNOR3ddFgQ0L0QK-3v3PvOojIceIZ3?usp=sharing) and run eval_testbench.ipynb
-      
+          
+      -- To Train the model
+          Run new_testbench.py
+      -- To Generate the Datafiles
+           Run data_file_generator.py
+      -- To Evaluate
+           [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
 
 
 
