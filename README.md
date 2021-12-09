@@ -31,36 +31,75 @@ Different configuration using these blocks are designed as part of work. These c
     <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Plots_boc_ba.jpg' >
      </p>
 
-## Structure for DL_method
+## Repo Structure
 ```
-├── data_extraction.py
-├── data_file_generator.py
-├── eval_testbench.ipynb
-├── filters.py
-├── hrv_analysis
-│   ├── extract_features.py
-│   └── preprocessing.py
-├── new_testbench.py
-├── requirement.txt
-├── resp_signal_extraction.py
-├── rr_extration.py
-└── tf_model.py
+.
+├── Dayi_Bian
+│   ├── CNN_EVAL.ipynb
+│   ├── data_extraction.py
+│   ├── data_file_generator.py
+│   ├── filters.py
+│   ├── hrv_analysis
+│   │   ├── extract_features.py
+│   │   ├── preprocessing.py
+│   │   └── __pycache__
+│   │       └── extract_features.cpython-38.pyc
+│   ├── model.py
+│   ├── new_testbench.py
+│   ├── __pycache__
+│   │   ├── data_extraction.cpython-38.pyc
+│   │   ├── filters.cpython-38.pyc
+│   │   ├── model.cpython-38.pyc
+│   │   ├── resp_signal_extraction.cpython-38.pyc
+│   │   └── rr_extration.cpython-38.pyc
+│   ├── requirement.txt
+│   ├── resp_signal_extraction.py
+│   └── rr_extration.py
+├── DL_Model
+│   ├── data_extraction.py
+│   ├── data_file_generator.py
+│   ├── eval_testbench.ipynb
+│   ├── filters.py
+│   ├── hrv_analysis
+│   │   ├── extract_features.py
+│   │   └── preprocessing.py
+│   ├── new_testbench.py
+│   ├── requirement.txt
+│   ├── resp_signal_extraction.py
+│   ├── rr_extration.py
+│   └── tf_model.py
+├── LICENSE
+├── plot
+│   ├── activity_plot.png
+│   ├── bland_altman.png
+│   ├── Box_plot.png
+│   ├── modality_plot.png
+│   ├── Model_Table_6.0.png
+│   ├── Plots_boc_ba.jpg
+│   ├── RespNet2_V2.0_block_crop.png
+│   └── Results.png
+├── README.md
+└── Smart_Fusion
+    ├── edr_adr_signal_extraction.py
+    ├── extract_features.py
+    ├── filters.py
+    ├── hrv_analysis
+    │   ├── extract_features.py
+    │   └── preprocessing.py
+    ├── machine_learning.py
+    ├── plots.py
+    ├── ppg_dalia_data_extraction.py
+    ├── preprocessing.py
+    ├── Ref_signal_Testbench.ipynb
+    ├── Respiratory_signal_plot_testbench .ipynb
+    ├── rqi_extraction.py
+    ├── rr_extraction.py
+    ├── testbench.py
+    └── validation.py
 ```
-      
-## System Setup for DL_Method
-        1. pip install requirement.
 
-## Steps for DL_Method
-  -- General Steps
-  * Download the dataset.
       
-  -- Generate the data files.
-  * Run data_file_generator.py
-  
-  -- Evaluate the model.
-  * [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
-  * [Download the data files](https://drive.google.com/drive/folders/1PIaNOR3ddFgQ0L0QK-3v3PvOojIceIZ3?usp=sharing)
-  * Run eval_testbench.ipynb
+
       
 
 
