@@ -32,6 +32,7 @@ Different configuration using these blocks are designed as part of work. These c
      </p>
     
 ## SYSTEM SETUP
+      * pip install requirement
 
 
 
