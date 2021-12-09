@@ -33,12 +33,19 @@ Different configuration using these blocks are designed as part of work. These c
     
 ## System Setup
         1. pip install requirement.
-### Train the model
-      Run new_testbench.py
-### Generate the data files
-      Run data_file_generator.py
-### Evaluation
-       [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
+
+##Steps
+  -- General Steps
+      * Download the dataset.
+      
+  -- Generate the data files.
+      * Run data_file_generator.py
+  
+  -- Evaluate the model.
+      * [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
+      
+
+
       
            
       
