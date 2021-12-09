@@ -35,16 +35,16 @@ Different configuration using these blocks are designed as part of work. These c
         1. pip install requirement.
 
 ## Steps
-  ### General Steps
-      * Download the dataset.
+  -- General Steps
+  * Download the dataset.
       
   -- Generate the data files.
-      * Run data_file_generator.py
+  * Run data_file_generator.py
   
   -- Evaluate the model.
-      * [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
-      * [Download the data files](https://drive.google.com/drive/folders/1PIaNOR3ddFgQ0L0QK-3v3PvOojIceIZ3?usp=sharing)
-      * Run eval_testbench.ipynb
+  * [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
+  * [Download the data files](https://drive.google.com/drive/folders/1PIaNOR3ddFgQ0L0QK-3v3PvOojIceIZ3?usp=sharing)
+  * Run eval_testbench.ipynb
       
 
 
