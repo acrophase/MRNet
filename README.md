@@ -1,6 +1,5 @@
 # MultiRespDL
-
-A Deep Learning based Multitasking model for estimation of Respiratory Rate from ECG and accelerometer.
+A Deep Learning Based Multitask Network for Respiration Rate Estimation - A Practical Perspective
 
 ## Research
 
@@ -97,13 +96,21 @@ Different configuration using these blocks are designed as part of work. These c
     ├── testbench.py
     └── validation.py
 ```
+## Acknowledgements
 
+ - [hrv_analysis](https://github.com/neergaard/utime-pytorch)
+ - [Tensorflow](https://github.com/tensorflow/tensorflow)
+   
+## Authors
+- [@KapilSinghRathore](https://github.com/Kapil19-dev)
 ---
       
-**NOTE: **
-Futhur modifications will be done in upcoming versions...      
+**NOTE:**
+- To run the specific method, open the corresponding folder and follow the steps.      
+- Futhur modifications will be done in upcoming versions...      
 
 ---
+
 
       
 
