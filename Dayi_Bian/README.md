@@ -38,4 +38,4 @@
   -- Evaluate the model.
   * [Download the models for different configurations](https://drive.google.com/drive/folders/1fEA6SkJ1m2DwxU-OqSed1VjLRy3Q10dJ?usp=sharing)
   * [Download the data files](https://drive.google.com/drive/folders/1PIaNOR3ddFgQ0L0QK-3v3PvOojIceIZ3?usp=sharing)
-  * CNN_EVAL.ipynb
+  * Run CNN_EVAL.ipynb
