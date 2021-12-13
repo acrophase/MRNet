@@ -15,7 +15,7 @@
 ```
       
 ## System Setup for DL_Method
-        1. pip install requirement.
+        1. pip install requirement.txt.
 
 ## Steps for DL_Method
   -- General Steps
@@ -23,6 +23,9 @@
       
   -- Generate the data files.
   * Run data_file_generator.py
+  
+  -- Train the model.
+  * Run new_testbench.py
   
   -- Evaluate the model.
   * [Download the models for different configurations](https://drive.google.com/drive/folders/1wsyNcdeR1MF__zN9J5vhp9xQ8497aoV1?usp=sharing)
