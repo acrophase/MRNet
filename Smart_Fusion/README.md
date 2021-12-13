@@ -21,8 +21,12 @@
 
 ```
 ## System Setup for Smart_Fusion
-        1. pip install requirement.
+        1. pip install requirement.txt.
 
 ## Steps for DL_Method
-Run testbench.py
 
+  -- General Steps
+  * Download the dataset.
+  
+  -- Train the model.
+  * Run testbench.py
