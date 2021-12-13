@@ -102,7 +102,7 @@ Different configuration using these blocks are designed as part of work. These c
  - [Tensorflow](https://github.com/tensorflow/tensorflow)
    
 ## Authors
-- [@KapilSinghRathore](https://github.com/Kapil19-dev)
+- [Kapil Singh Rathore](https://github.com/Kapil19-dev)
 ---
       
 **NOTE:**
