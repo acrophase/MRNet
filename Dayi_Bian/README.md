@@ -23,13 +23,17 @@
 └── rr_extration.py
 ```
 ## System Setup for DAYI_BIAN
-        1. pip install requirement.
+        1. pip install requirement.txt.
 
 ## Steps for DAYI_BIAN
   -- General Steps
   * Download the dataset.
+  
   -- Generate the data files.
   * Run data_file_generator.py
+
+  -- Train the model.
+  * Run new_testbench.py
   
   -- Evaluate the model.
   * [Download the models for different configurations](https://drive.google.com/drive/folders/1fEA6SkJ1m2DwxU-OqSed1VjLRy3Q10dJ?usp=sharing)
