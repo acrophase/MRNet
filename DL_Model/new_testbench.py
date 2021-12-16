@@ -33,11 +33,22 @@ from tensorflow.keras.losses import Huber
 import matplotlib.pyplot as plt
 import datetime
 import sys
+import argparse
 
-srate = 700
-win_length = 32*srate
-train_test_split_id = 13
-num_epochs = 100
+parser = argparse.ArgumentParser()
+parser.add_argument('--save_model_path', type = str, help = 'Path to saved model',default = None )#'/media/acrophase/pose1/charan/BR_Uncertainty/DAYI_BIAN/SAVED_MODELS')
+parser.add_argument('--srate',type = int, help = 'sampling rate',default = 700)
+parser.add_argument('--win_len',type = int, help = 'win length in secs',default = 32)
+parser.add_argument('--num_epochs',type = int, help = 'number_of_epochs',default = 100)
+parser.add_argument('--train_test_split_id',type = int, help = 'train test split id',default = 13)
+parser.add_argument('--annot_path', type = str, help = 'Path to annotation',default = None )#'/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
+
+args = parser.parse_args()
+
+srate = args.srate
+win_length = args.win_len * args.srate
+num_epochs = args.num_epochs
+train_test_split_id = args.train_test_split_id
 
 with open('output','rb') as f:
     output_data = pkl.load(f)
@@ -55,7 +66,7 @@ input_data = np.around(input_data , decimals = 4)
 raw_data = np.around(raw_data , decimals = 4)
 output_data = np.around(output_data , decimals = 4)
 
-annotation = pd.read_pickle('/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
+annotation = pd.read_pickle(args.annot_path)#pd.read_pickle('/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
 reference_rr = (annotation['Reference_RR'].values).reshape(-1,1)
 reference_rr = np.around(reference_rr , decimals = 4)
 
@@ -88,7 +99,7 @@ for item in config_list:
         model_input_shape = (2048,3)
         model  = BRUnet_raw_encoder(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
+        save_path =  args.save_model_path #'/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)
@@ -157,7 +168,7 @@ for item in config_list:
         model_input_shape = (2048,3)
         model  = BRUnet_raw_multi(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
+        save_path = args.save_model_path #'/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)        
@@ -228,7 +239,7 @@ for item in config_list:
         model_input_shape = (128,3)
         model  = BRUnet(model_input_shape)
         optimizer = Adam(learning_rate = lr)
-        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
+        save_path = args.save_model_path #'/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results)
@@ -303,7 +314,7 @@ for item in config_list:
         model_input_shape = (128,3)
         model  = BRUnet_Encoder(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
+        save_path = args.save_model_path #'/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)
@@ -371,7 +382,7 @@ for item in config_list:
         model_input_shape = (128,3)
         model  = BRUnet_Multi_resp(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
+        save_path = args.save_model_path #'/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)        
@@ -447,7 +458,7 @@ for item in config_list:
         model_input_shape = (2048,3)
         model  = BRUnet_raw(model_input_shape)
         loss_fn = Huber()
-        save_path = '/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
+        save_path = args.save_model_path #'/media/acrophase/pose1/charan/MultiRespDL/DL_BASED_METHOD/SAVED_MODELS'
         results_path = os.path.join(save_path , item.lower())
         if not(os.path.isdir(results_path)):
             os.mkdir(results_path)
