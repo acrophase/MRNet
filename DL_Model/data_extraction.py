@@ -148,7 +148,7 @@ def extract_data (path, srate, window_length):
                           'SOCCER_RESP':soccer_resp , 'CYCLING_RESP': cycling_resp , 'DRIVING_RESP': driving_resp,
                           'LUNCH_RESP':lunch_resp , 'WALKING_RESP': walking_resp , 'WORKING_RESP':working_resp  }
                           ,'ACTIVITY_ID': annotation_per_window}})
-        #if index_1 == 12:
+        #if index_1 == 3:
         #   break 
     return data
     
