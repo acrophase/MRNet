@@ -29,4 +29,6 @@
   * Download the dataset.
   
   -- Train the model.
-  * Run testbench.py
+  ```bash
+  python testbench.py --data_path <"Path of ppg dalia data">
+  ```
