@@ -35,7 +35,9 @@
   ```
 
   -- Train the model.
-  * Run new_testbench.py
+  ```bash
+  python new_testbench.py --save_model_path <"Path to saved models"> --srate <"sampling rate"> --win_len <"window length"> --num_epochs <"number of epochs"> --train_test_split_id <"train test split"> --annot_path <"path of annotations">
+  ```
   
   -- Evaluate the model.
   * [Download the models for different configurations](https://drive.google.com/drive/folders/1fEA6SkJ1m2DwxU-OqSed1VjLRy3Q10dJ?usp=sharing)
