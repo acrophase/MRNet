@@ -30,7 +30,9 @@
   * Download the dataset.
   
   -- Generate the data files.
-  * Run data_file_generator.py
+  ```bash
+  python data_file_generator.py --data_path <"Path of ppg dalia data"> --srate <"sampling rate"> --win_len <"window length"> --num_epochs <"number of epochs">
+  ```
 
   -- Train the model.
   * Run new_testbench.py
