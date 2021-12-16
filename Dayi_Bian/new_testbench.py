@@ -31,11 +31,24 @@ from tensorflow.keras.losses import Huber
 import matplotlib.pyplot as plt
 import datetime
 import sys
+import argparse
 
-srate = 700
-win_length = 32*srate
-num_epochs = 100
-train_test_split_id = 13
+parser = argparse.ArgumentParser()
+parser.add_argument('--save_model_path', type = str, help = 'Path to saved model',default = None )#'/media/acrophase/pose1/charan/BR_Uncertainty/DAYI_BIAN/SAVED_MODELS')
+parser.add_argument('--srate',type = int, help = 'sampling rate',default = 700)
+parser.add_argument('--win_len',type = int, help = 'win length in secs',default = 32)
+parser.add_argument('--num_epochs',type = int, help = 'number_of_epochs',default = 100)
+parser.add_argument('--train_test_split_id',type = int, help = 'train test split id',default = 13)
+parser.add_argument('--annot_path', type = str, help = 'Path to annotation',default = None )#'/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
+
+args = parser.parse_args()
+
+srate = args.srate
+win_length = args.win_len * args.srate
+num_epochs = args.num_epochs
+train_test_split_id = args.train_test_split_id
+
+
 with open('output','rb') as f:
     output_data = pkl.load(f)
 
@@ -52,7 +65,7 @@ input_data = np.around(input_data , decimals = 4)
 raw_data = np.around(raw_data , decimals = 4)
 output_data = np.around(output_data , decimals = 4)
 
-annotation = pd.read_pickle('/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
+annotation = pd.read_pickle(args.annot_path)
 reference_rr = (annotation['Reference_RR'].values).reshape(-1,1)
 reference_rr = np.around(reference_rr , decimals = 4)
 
@@ -78,7 +91,7 @@ lr = 1e-5
 optimizer = Adam(learning_rate = lr) 
 model  = CNN(model_input_shape)
 loss_fn = Huber()
-save_path = '/media/acrophase/pose1/charan/BR_Uncertainty/DAYI_BIAN/SAVED_MODELS'
+save_path =  args.save_model_path  #'/media/acrophase/pose1/charan/BR_Uncertainty/DAYI_BIAN/SAVED_MODELS'
 results_path = os.path.join(save_path , str(lr))
 if not(os.path.isdir(results_path)):
         os.mkdir(results_path)
@@ -96,9 +109,11 @@ test_log_dir = 'evi/logs/gradient_tape/' +current_time + '/test'
 train_summary_writer = tf.summary.create_file_writer(train_log_dir)
 test_summary_writer = tf.summary.create_file_writer(test_log_dir)  
 
+
 #print("Starting the training for : {}".format(item))
 for epoch in range(num_epochs):
     print("starting the epoch : {}".format(epoch + 1))
+    break
     train_loss_list = []
     for step, (x_batch_train_raw , x_batch_train_ref_rr) in enumerate(train_dataset):
         with tf.GradientTape() as tape:
