@@ -8,13 +8,17 @@ import pickle as pkl
 import matplotlib.pyplot as plt
 import sys
 from scipy import signal
+import argparse
 
 srate = 700
 win_length = 32*srate
 num_epochs = 100
 
-data_path = '/media/acrophase/pose1/charan/MultiRespDL/ppg_dalia_data'
-data = extract_data(data_path , srate , win_length)
+parser = argparse.ArgumentParser()
+parser.add_argument('--data_path', type = str, help = 'Path to data')
+args = parser.parse_args()
+
+data = extract_data(args.data_path , srate , win_length)
 
 for item in enumerate(data.keys()):
     raw_ecg = []
@@ -87,12 +91,12 @@ for item in enumerate(data.keys()):
     
 #if(extract_pickle == True):
 activity_df = pd.DataFrame(final_sub_activity_ids , columns = ['Reference_RR' , 'activity_id','patient_id'])
-activity_df.to_pickle('annotation_demo_new.pkl')
-with open ('output_demo_new' , 'wb') as f:
+activity_df.to_pickle('annotation.pkl')
+with open ('output' , 'wb') as f:
     pkl.dump(final_windowed_op , f)
 
-with open ('input_demo_new' , 'wb') as f:
+with open ('input' , 'wb') as f:
     pkl.dump(final_windowed_inp , f)
 
-with open ('raw_signal_demo_new.pkl' , 'wb') as f:
+with open ('raw_signal.pkl' , 'wb') as f:
     pkl.dump(final_windowed_raw , f)
