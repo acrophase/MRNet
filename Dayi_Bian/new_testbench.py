@@ -113,7 +113,6 @@ test_summary_writer = tf.summary.create_file_writer(test_log_dir)
 #print("Starting the training for : {}".format(item))
 for epoch in range(num_epochs):
     print("starting the epoch : {}".format(epoch + 1))
-    break
     train_loss_list = []
     for step, (x_batch_train_raw , x_batch_train_ref_rr) in enumerate(train_dataset):
         with tf.GradientTape() as tape:
