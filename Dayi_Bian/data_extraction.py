@@ -148,14 +148,8 @@ def extract_data (path, srate, window_length,need_pkl = False):
                           'SOCCER_RESP':soccer_resp , 'CYCLING_RESP': cycling_resp , 'DRIVING_RESP': driving_resp,
                           'LUNCH_RESP':lunch_resp , 'WALKING_RESP': walking_resp , 'WORKING_RESP':working_resp  }
                           ,'ACTIVITY_ID': annotation_per_window}})
-        #if index_1 == 2:
+        #if index_1 == 10:
         #   break 
     return data
     
-#path = 'C:/Users/ee19s/Desktop/HR/ppg_dalia_data'
-#srate = 700
-#win_len = 32*srate
-#data = extract_data(path , srate , win_len)
-#print(len(data['S15']['ECG']['ECG_DATA']))
-#print(len(data['S15']['ACC']['ACC_DATA']))
-#print(len(data['S15']['RESP']['RESP_DATA']))
+
