@@ -28,7 +28,7 @@
   -- General Steps
   * Download the dataset.
   
-  -- Train the model.
+  -- Training and Evaluation.
   ```bash
   python testbench.py --data_path <"Path of ppg dalia data">
   ```
