@@ -5,7 +5,7 @@ Data_Path='/media/acrophase/pose1/Kapil/ppg_dalia_data'
 Saved_Model_Path='/media/acrophase/pose1/Kapil/MultiRespDL/DL_Model/SAVED_MODELS'
 Annotation_Path='/media/acrophase/pose1/Kapil/MultiRespDL/DL_Model/annotation.pkl'
 echo "---------------------File Generation Begins ----------------"
-############################# ECG BASE MODEL ###############################
+############################# DATA GENERATOR ###############################
 echo "python ${FILE_GEN_PATH} --data_path "Data_Path""
 python ${FILE_GEN_PATH} --data_path ${Data_Path}
 ############################# NEW TESTBENCH BEGINS ###############################
