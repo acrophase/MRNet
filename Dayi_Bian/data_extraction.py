@@ -21,9 +21,9 @@ def extract_data(path, srate, window_length, need_pkl=False):
     subjects = [i for i in sorted(os.listdir(path)) if not (i.endswith("pdf"))]
     seconds_per_window = window_length / srate
     data = {}
-    # index_1 = 0
+    #index_1 = 0
     for sub_id in tqdm(subjects):
-        # index_1+=1
+        #index_1+=1
         print("Subject Id is", sub_id)
         windowed_ecg = []
         windowed_resp = []
@@ -343,6 +343,6 @@ def extract_data(path, srate, window_length, need_pkl=False):
                 }
             }
         )
-        # if index_1 == 10:
+        #if index_1 == 2:
         #   break
     return data
