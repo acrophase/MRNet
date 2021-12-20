@@ -16,14 +16,23 @@ KAMATH_RULE = "kamath"
 ACAR_RULE = "acar"
 CUSTOM_RULE = "custom"
 
-__all__ = ["remove_outliers", "remove_ectopic_beats", "interpolate_nan_values", "get_nn_intervals"]
+__all__ = [
+    "remove_outliers",
+    "remove_ectopic_beats",
+    "interpolate_nan_values",
+    "get_nn_intervals",
+]
 
 
 # ----------------- ClEAN OUTlIER / ECTOPIC BEATS ----------------- #
 
 
-def remove_outliers(rr_intervals: List[float], verbose: bool = True, low_rri: int = 300,
-                    high_rri: int = 2000) -> List[float]:
+def remove_outliers(
+    rr_intervals: List[float],
+    verbose: bool = True,
+    low_rri: int = 300,
+    high_rri: int = 2000,
+) -> List[float]:
     """
     Function that replace RR-interval outlier by nan.
 
@@ -59,7 +68,9 @@ def remove_outliers(rr_intervals: List[float], verbose: bool = True, low_rri: in
 
     # Conversion RrInterval to Heart rate ==> rri (ms) =  1000 / (bpm / 60)
     # rri 2000 => bpm 30 / rri 300 => bpm 200
-    rr_intervals_cleaned = [rri if high_rri >= rri >= low_rri else np.nan for rri in rr_intervals]
+    rr_intervals_cleaned = [
+        rri if high_rri >= rri >= low_rri else np.nan for rri in rr_intervals
+    ]
 
     if verbose:
         outliers_list = []
@@ -79,8 +90,9 @@ def remove_outliers(rr_intervals: List[float], verbose: bool = True, low_rri: in
     return rr_intervals_cleaned
 
 
-def remove_ectopic_beats(rr_intervals: List[float], method: str = "malik",
-                         custom_removing_rule: float = 0.2) -> List[float]:
+def remove_ectopic_beats(
+    rr_intervals: List[float], method: str = "malik", custom_removing_rule: float = 0.2
+) -> List[float]:
     """
     RR-intervals differing by more than the removing_rule from the one proceeding it are removed.
 
@@ -111,12 +123,15 @@ def remove_ectopic_beats(rr_intervals: List[float], method: str = "malik",
     .. [6] Geometric Methods for Heart Rate Variability Assessment - Malik M et al
     """
     if method not in [MALIK_RULE, KAMATH_RULE, KARLSSON_RULE, ACAR_RULE, CUSTOM_RULE]:
-        raise ValueError("Not a valid method. Please choose between malik, kamath, karlsson, acar.\
-         You can also choose your own removing critera with custom_rule parameter.")
+        raise ValueError(
+            "Not a valid method. Please choose between malik, kamath, karlsson, acar.\
+         You can also choose your own removing critera with custom_rule parameter."
+        )
 
     if method == KARLSSON_RULE:
-        nn_intervals, outlier_count = _remove_outlier_karlsson(rr_intervals=rr_intervals,
-                                                               removing_rule=custom_removing_rule)
+        nn_intervals, outlier_count = _remove_outlier_karlsson(
+            rr_intervals=rr_intervals, removing_rule=custom_removing_rule
+        )
 
     elif method == ACAR_RULE:
         nn_intervals, outlier_count = _remove_outlier_acar(rr_intervals=rr_intervals)
@@ -133,21 +148,33 @@ def remove_ectopic_beats(rr_intervals: List[float], method: str = "malik",
                 previous_outlier = False
                 continue
 
-            if is_outlier(rr_interval, rr_intervals[i + 1], method=method,
-                          custom_rule=custom_removing_rule):
+            if is_outlier(
+                rr_interval,
+                rr_intervals[i + 1],
+                method=method,
+                custom_rule=custom_removing_rule,
+            ):
                 nn_intervals.append(rr_intervals[i + 1])
             else:
                 nn_intervals.append(np.nan)
                 outlier_count += 1
                 previous_outlier = True
 
-    print("{} ectopic beat(s) have been deleted with {} rule.".format(outlier_count, method))
+    print(
+        "{} ectopic beat(s) have been deleted with {} rule.".format(
+            outlier_count, method
+        )
+    )
 
     return nn_intervals
 
 
-def is_outlier(rr_interval: int, next_rr_interval: float, method: str = "malik",
-               custom_rule: float = 0.2) -> bool:
+def is_outlier(
+    rr_interval: int,
+    next_rr_interval: float,
+    method: str = "malik",
+    custom_rule: float = 0.2,
+) -> bool:
     """
     Test if the rr_interval is an outlier
 
@@ -171,14 +198,18 @@ def is_outlier(rr_interval: int, next_rr_interval: float, method: str = "malik",
     if method == MALIK_RULE:
         outlier = abs(rr_interval - next_rr_interval) <= 0.2 * rr_interval
     elif method == KAMATH_RULE:
-        outlier = 0 <= (next_rr_interval - rr_interval) <= 0.325 * rr_interval or 0 <= \
-                  (rr_interval - next_rr_interval) <= 0.245 * rr_interval
+        outlier = (
+            0 <= (next_rr_interval - rr_interval) <= 0.325 * rr_interval
+            or 0 <= (rr_interval - next_rr_interval) <= 0.245 * rr_interval
+        )
     else:
         outlier = abs(rr_interval - next_rr_interval) <= custom_rule * rr_interval
     return outlier
 
 
-def _remove_outlier_karlsson(rr_intervals: List[float], removing_rule: float = 0.2) -> Tuple[List[float], int]:
+def _remove_outlier_karlsson(
+    rr_intervals: List[float], removing_rule: float = 0.2
+) -> Tuple[List[float], int]:
     """
     RR-intervals differing by more than the 20 % of the mean of previous and next RR-interval
     are removed.
@@ -212,7 +243,10 @@ def _remove_outlier_karlsson(rr_intervals: List[float], removing_rule: float = 0
             nn_intervals.append(rr_intervals[i + 1])
             break
         mean_prev_next_rri = (rr_intervals[i] + rr_intervals[i + 2]) / 2
-        if abs(mean_prev_next_rri - rr_intervals[i + 1]) < removing_rule * mean_prev_next_rri:
+        if (
+            abs(mean_prev_next_rri - rr_intervals[i + 1])
+            < removing_rule * mean_prev_next_rri
+        ):
             nn_intervals.append(rr_intervals[i + 1])
         else:
             nn_intervals.append(np.nan)
@@ -220,7 +254,9 @@ def _remove_outlier_karlsson(rr_intervals: List[float], removing_rule: float = 0
     return nn_intervals, outlier_count
 
 
-def _remove_outlier_acar(rr_intervals: List[float], custom_rule=0.2) -> Tuple[List[float], int]:
+def _remove_outlier_acar(
+    rr_intervals: List[float], custom_rule=0.2
+) -> Tuple[List[float], int]:
     """
     RR-intervals differing by more than the 20 % of the mean of last 9 RrIntervals
     are removed.
@@ -258,7 +294,9 @@ def _remove_outlier_acar(rr_intervals: List[float], custom_rule=0.2) -> Tuple[Li
     return nn_intervals, outlier_count
 
 
-def interpolate_nan_values(rr_intervals: List[float], interpolation_method: str = "linear", limit=1):
+def interpolate_nan_values(
+    rr_intervals: List[float], interpolation_method: str = "linear", limit=1
+):
     """
     Function that interpolate Nan values with linear interpolation
 
@@ -277,15 +315,20 @@ def interpolate_nan_values(rr_intervals: List[float], interpolation_method: str 
     """
     series_rr_intervals_cleaned = pd.Series(rr_intervals)
     # Interpolate nan values and convert pandas object to list of values
-    interpolated_rr_intervals = series_rr_intervals_cleaned.interpolate(method=interpolation_method,
-                                                                        limit=limit,
-                                                                        limit_area="inside")
+    interpolated_rr_intervals = series_rr_intervals_cleaned.interpolate(
+        method=interpolation_method, limit=limit, limit_area="inside"
+    )
     return interpolated_rr_intervals.values.tolist()
 
 
-def get_nn_intervals(rr_intervals: List[float], low_rri: int = 300, high_rri: int = 2000,
-                     interpolation_method: str = "linear", ectopic_beats_removal_method: str = KAMATH_RULE,
-                     verbose: bool = True) -> List[float]:
+def get_nn_intervals(
+    rr_intervals: List[float],
+    low_rri: int = 300,
+    high_rri: int = 2000,
+    interpolation_method: str = "linear",
+    ectopic_beats_removal_method: str = KAMATH_RULE,
+    verbose: bool = True,
+) -> List[float]:
     """
     Function that computes NN Intervals from RR-intervals.
 
@@ -309,16 +352,24 @@ def get_nn_intervals(rr_intervals: List[float], low_rri: int = 300, high_rri: in
     interpolated_nn_intervals : list
         list of NN Interval interpolated
     """
-    rr_intervals_cleaned = remove_outliers(rr_intervals, low_rri=low_rri, high_rri=high_rri,
-                                           verbose=verbose)
-    interpolated_rr_intervals = interpolate_nan_values(rr_intervals_cleaned, interpolation_method)
-    nn_intervals = remove_ectopic_beats(interpolated_rr_intervals,
-                                        method=ectopic_beats_removal_method)
-    interpolated_nn_intervals = interpolate_nan_values(nn_intervals, interpolation_method)
+    rr_intervals_cleaned = remove_outliers(
+        rr_intervals, low_rri=low_rri, high_rri=high_rri, verbose=verbose
+    )
+    interpolated_rr_intervals = interpolate_nan_values(
+        rr_intervals_cleaned, interpolation_method
+    )
+    nn_intervals = remove_ectopic_beats(
+        interpolated_rr_intervals, method=ectopic_beats_removal_method
+    )
+    interpolated_nn_intervals = interpolate_nan_values(
+        nn_intervals, interpolation_method
+    )
     return interpolated_nn_intervals
 
 
-def is_valid_sample(nn_intervals: List[float], outlier_count: int, removing_rule: float = 0.04) -> bool:
+def is_valid_sample(
+    nn_intervals: List[float], outlier_count: int, removing_rule: float = 0.04
+) -> bool:
     """
     Test if the sample meet the condition to be used for analysis
 

@@ -12,9 +12,14 @@ from astropy.stats import LombScargle
 from scipy import signal
 
 # limit functions that user might import using "from hrv-analysis import *"
-__all__ = ['get_time_domain_features', 'get_frequency_domain_features',
-           'get_geometrical_features', 'get_poincare_plot_features',
-           "get_csi_cvi_features", "get_sampen"]
+__all__ = [
+    "get_time_domain_features",
+    "get_frequency_domain_features",
+    "get_geometrical_features",
+    "get_poincare_plot_features",
+    "get_csi_cvi_features",
+    "get_sampen",
+]
 
 # Frequency Methods name
 WELCH_METHOD = "welch"
@@ -115,7 +120,9 @@ def get_time_domain_features(nn_intervals: List[float]) -> dict:
     cvsd = rmssd / mean_nni
 
     # Features only for long term recordings
-    sdnn = np.std(nn_intervals, ddof=1)  # ddof = 1 : unbiased estimator => divide std by n-1
+    sdnn = np.std(
+        nn_intervals, ddof=1
+    )  # ddof = 1 : unbiased estimator => divide std by n-1
     cvnni = sdnn / mean_nni
 
     # Heart Rate equivalent features
@@ -126,19 +133,19 @@ def get_time_domain_features(nn_intervals: List[float]) -> dict:
     std_hr = np.std(heart_rate_list)
 
     time_domain_features = {
-        'mean_nni': mean_nni,
-        'sdnn': sdnn,
-        'sdsd': sdsd,
-        'nni_50': nni_50,
-        'pnni_50': pnni_50,
-        'nni_20': nni_20,
-        'pnni_20': pnni_20,
-        'rmssd': rmssd,
-        'median_nni': median_nni,
-        'range_nni': range_nni,
-        'cvsd': cvsd,
-        'cvnni': cvnni,
-        'mean_hr': mean_hr,
+        "mean_nni": mean_nni,
+        "sdnn": sdnn,
+        "sdsd": sdsd,
+        "nni_50": nni_50,
+        "pnni_50": pnni_50,
+        "nni_20": nni_20,
+        "pnni_20": pnni_20,
+        "rmssd": rmssd,
+        "median_nni": median_nni,
+        "range_nni": range_nni,
+        "cvsd": cvsd,
+        "cvnni": cvnni,
+        "mean_hr": mean_hr,
         "max_hr": max_hr,
         "min_hr": min_hr,
         "std_hr": std_hr,
@@ -150,11 +157,15 @@ def get_time_domain_features(nn_intervals: List[float]) -> dict:
 # ----------------- FREQUENCY DOMAIN FEATURES ----------------- #
 
 
-def get_frequency_domain_features(nn_intervals: List[float], method: str = WELCH_METHOD,
-                                  sampling_frequency: int = 7, interpolation_method: str = "linear",
-                                  vlf_band: namedtuple = VlfBand(0.0033, 0.04),
-                                  lf_band: namedtuple = LfBand(0.04, 0.15),
-                                  hf_band: namedtuple = HfBand(0.15, 0.40)) -> dict:
+def get_frequency_domain_features(
+    nn_intervals: List[float],
+    method: str = WELCH_METHOD,
+    sampling_frequency: int = 7,
+    interpolation_method: str = "linear",
+    vlf_band: namedtuple = VlfBand(0.0033, 0.04),
+    lf_band: namedtuple = LfBand(0.04, 0.15),
+    hf_band: namedtuple = HfBand(0.15, 0.40),
+) -> dict:
     """
     Returns a dictionary containing frequency domain features for HRV analyses.
     Must use this function on short term recordings, from 2 to 5 minutes window.
@@ -222,25 +233,31 @@ def get_frequency_domain_features(nn_intervals: List[float], method: str = WELCH
     """
 
     # ----------  Compute frequency & Power of signal  ---------- #
-    freq, psd = _get_freq_psd_from_nn_intervals(nn_intervals=nn_intervals, method=method,
-                                                sampling_frequency=sampling_frequency,
-                                                interpolation_method=interpolation_method,
-                                                vlf_band=vlf_band, hf_band=hf_band)
+    freq, psd = _get_freq_psd_from_nn_intervals(
+        nn_intervals=nn_intervals,
+        method=method,
+        sampling_frequency=sampling_frequency,
+        interpolation_method=interpolation_method,
+        vlf_band=vlf_band,
+        hf_band=hf_band,
+    )
 
     # ---------- Features calculation ---------- #
-    freqency_domain_features = _get_features_from_psd(freq=freq, psd=psd,
-                                                      vlf_band=vlf_band,
-                                                      lf_band=lf_band,
-                                                      hf_band=hf_band)
+    freqency_domain_features = _get_features_from_psd(
+        freq=freq, psd=psd, vlf_band=vlf_band, lf_band=lf_band, hf_band=hf_band
+    )
 
     return freqency_domain_features
 
 
-def _get_freq_psd_from_nn_intervals(nn_intervals: List[float], method: str = WELCH_METHOD,
-                                    sampling_frequency: int = 7,
-                                    interpolation_method: str = "linear",
-                                    vlf_band: namedtuple = VlfBand(0.0033, 0.04),
-                                    hf_band: namedtuple = HfBand(0.15, 0.40)) -> Tuple:
+def _get_freq_psd_from_nn_intervals(
+    nn_intervals: List[float],
+    method: str = WELCH_METHOD,
+    sampling_frequency: int = 7,
+    interpolation_method: str = "linear",
+    vlf_band: namedtuple = VlfBand(0.0033, 0.04),
+    hf_band: namedtuple = HfBand(0.15, 0.40),
+) -> Tuple:
     """
     Returns the frequency and power of the signal.
 
@@ -283,13 +300,18 @@ def _get_freq_psd_from_nn_intervals(nn_intervals: List[float], method: str = WEL
         # nni_normalized = nni_interpolation - np.mean(nni_interpolation)
 
         #  ----------  Compute Power Spectral Density  ---------- #
-        freq, psd = signal.welch(x=nn_intervals, fs=sampling_frequency, window='hann',nperseg = len(nn_intervals),
-                                 nfft=None)
+        freq, psd = signal.welch(
+            x=nn_intervals,
+            fs=sampling_frequency,
+            window="hann",
+            nperseg=len(nn_intervals),
+            nfft=None,
+        )
 
     elif method == LOMB_METHOD:
-        freq, psd = LombScargle(nn_intervals,
-                                normalization='psd').autopower(minimum_frequency=vlf_band[0],
-                                                               maximum_frequency=hf_band[1])
+        freq, psd = LombScargle(nn_intervals, normalization="psd").autopower(
+            minimum_frequency=vlf_band[0], maximum_frequency=hf_band[1]
+        )
     else:
         raise ValueError("Not a valid method. Choose between 'lomb' and 'welch'")
 
@@ -318,7 +340,9 @@ def _create_time_info(nn_intervals: List[float]) -> List[float]:
     return nni_tmstp - nni_tmstp[0]
 
 
-def _create_interpolation_time(time_nni: List[float], sampling_frequency: int = 7) -> List[float]:
+def _create_interpolation_time(
+    time_nni: List[float], sampling_frequency: int = 7
+) -> List[float]:
     """
     Creates the interpolation time used for Fourier transform's method
 
@@ -340,9 +364,13 @@ def _create_interpolation_time(time_nni: List[float], sampling_frequency: int = 
     return nni_interpolation_tmstp
 
 
-def _get_features_from_psd(freq: List[float], psd: List[float], vlf_band: namedtuple = VlfBand(0.0033, 0.04),
-                           lf_band: namedtuple = LfBand(0.04, 0.15),
-                           hf_band: namedtuple = HfBand(0.15, 0.40)) -> dict:
+def _get_features_from_psd(
+    freq: List[float],
+    psd: List[float],
+    vlf_band: namedtuple = VlfBand(0.0033, 0.04),
+    lf_band: namedtuple = LfBand(0.04, 0.15),
+    hf_band: namedtuple = HfBand(0.15, 0.40),
+) -> dict:
     """
     Computes frequency domain features from the power spectral decomposition.
 
@@ -386,13 +414,13 @@ def _get_features_from_psd(freq: List[float], psd: List[float], vlf_band: namedt
     hfnu = (hf / (lf + hf)) * 100
 
     freqency_domain_features = {
-        'lf': lf,
-        'hf': hf,
-        'lf_hf_ratio': lf_hf_ratio,
-        'lfnu': lfnu,
-        'hfnu': hfnu,
-        'total_power': total_power,
-        'vlf': vlf
+        "lf": lf,
+        "hf": hf,
+        "lf_hf_ratio": lf_hf_ratio,
+        "lfnu": lfnu,
+        "hfnu": hfnu,
+        "total_power": total_power,
+        "vlf": vlf,
     }
 
     return freqency_domain_features
@@ -435,18 +463,14 @@ def get_csi_cvi_features(nn_intervals: List[float]) -> dict:
 
     # Measures the width and length of poincare cloud
     poincare_plot_features = get_poincare_plot_features(nn_intervals)
-    T = 4 * poincare_plot_features['sd1']
-    L = 4 * poincare_plot_features['sd2']
+    T = 4 * poincare_plot_features["sd1"]
+    L = 4 * poincare_plot_features["sd2"]
 
     csi = L / T
     cvi = np.log10(L * T)
     modified_csi = L ** 2 / T
 
-    csi_cvi_features = {
-        'csi': csi,
-        'cvi': cvi,
-        'Modified_csi': modified_csi
-    }
+    csi_cvi_features = {"csi": csi, "cvi": cvi, "Modified_csi": modified_csi}
 
     return csi_cvi_features
 
@@ -488,14 +512,13 @@ def get_poincare_plot_features(nn_intervals: List[float]) -> dict:
     # measures the width of poincare cloud
     sd1 = np.sqrt(np.std(diff_nn_intervals, ddof=1) ** 2 * 0.5)
     # measures the length of the poincare cloud
-    sd2 = np.sqrt(2 * np.std(nn_intervals, ddof=1) ** 2 - 0.5 * np.std(diff_nn_intervals, ddof=1) ** 2)
+    sd2 = np.sqrt(
+        2 * np.std(nn_intervals, ddof=1) ** 2
+        - 0.5 * np.std(diff_nn_intervals, ddof=1) ** 2
+    )
     ratio_sd2_sd1 = sd2 / sd1
 
-    poincare_plot_features = {
-        'sd1': sd1,
-        'sd2': sd2,
-        'ratio_sd2_sd1': ratio_sd2_sd1
-    }
+    poincare_plot_features = {"sd1": sd1, "sd2": sd2, "ratio_sd2_sd1": ratio_sd2_sd1}
 
     return poincare_plot_features
 
@@ -523,4 +546,4 @@ def get_sampen(nn_intervals: List[float]) -> dict:
     """
 
     sampen = nolds.sampen(nn_intervals, emb_dim=2)
-    return {'sampen': sampen}
+    return {"sampen": sampen}
