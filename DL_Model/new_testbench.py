@@ -3,9 +3,9 @@ import os
 import numpy as np
 import random
 SEED = 0
-#------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------
 def set_seeds(seed=SEED):
-    os.environ['PYTHONHASHSEED'] = str(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
     random.seed(seed)
     tf.random.set_seed(seed)
     np.random.seed(seed)
