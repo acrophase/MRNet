@@ -42,7 +42,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--save_model_path", type=str, help="Path to saved model", default=None
-)  #'/media/acrophase/pose1/charan/BR_Uncertainty/DAYI_BIAN/SAVED_MODELS')
+)  #'/media/acrophase/pose1/Kapil/MultiRespDL/DL_Model/SAVED_MODELS')
 parser.add_argument("--srate", type=int, help="sampling rate", default=700)
 parser.add_argument("--win_len", type=int, help="win length in secs", default=32)
 parser.add_argument("--num_epochs", type=int, help="number_of_epochs", default=100)
