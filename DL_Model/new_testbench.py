@@ -51,7 +51,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--annot_path", type=str, help="Path to annotation", default=None
-)  #'/media/acrophase/pose1/charan/MultiRespDL/DAYI_BIAN/annotation.pkl')
+)  #'/media/acrophase/pose1/Kapil/MultiRespDL/DL_Model/annotation.pkl')
 
 args = parser.parse_args()
 

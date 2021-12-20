@@ -14,12 +14,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--data_path", type=str, help="Path to data")
 parser.add_argument("--srate", type=int, help="sampling rate", default=700)
 parser.add_argument("--win_len", type=int, help="win length in secs", default=32)
-parser.add_argument("--num_epochs", type=int, help="number_of_epochs", default=100)
 args = parser.parse_args()
 
 srate = args.srate
 win_length = args.win_len * args.srate
-num_epochs = args.num_epochs
+
 
 data = extract_data(args.data_path, srate, win_length)
 
