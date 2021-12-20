@@ -1,5 +1,5 @@
 # MultiRespDL
-A Deep Learning Based Multitask Network for Respiration Rate Estimation - A Practical Perspective
+[A Deep Learning Based Multitask Network for Respiration Rate Estimation - A Practical Perspective](https://arxiv.org/abs/2112.09071)
 
 ## Research
 
@@ -30,7 +30,7 @@ Different configuration using these blocks are designed as part of work. These c
     <image src = 'https://github.com/HTIC-HPOC/MultiRespDL/blob/main/plot/Plots_boc_ba.jpg' >
      </p>
 
-## Repo Structure
+## Repository Structure
 ```
 .
 ├── Dayi_Bian
