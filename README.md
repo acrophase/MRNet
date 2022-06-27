@@ -1,5 +1,7 @@
 # MultiRespDL
-[A Deep Learning Based Multitask Network for Respiration Rate Estimation - A Practical Perspective](https://arxiv.org/abs/2112.09071)
+[MRNet - A Deep Learning Based Multitasking
+Model for Respiration Rate Estimation in Practical
+Settings]
 
 ## Research
 
