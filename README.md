@@ -14,7 +14,7 @@ The architecture consist three blocks Encoder (B1), Decoder (B2), and IncResNet 
 Different configuration using these blocks are designed as part of work. These configurations also differ in terms of inputs and outputs as given in the figure below:
 
 <p align="center">
-  <image src = 'https://github.com/Acrophase/MultiRespDL/blob/main/plot/MOD.png' >
+  <image src = 'https://github.com/Acrophase/MRNet/blob/main/plot/MOD.png' >
 </p>
   
 ### Datasets
