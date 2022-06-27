@@ -1,4 +1,4 @@
-# MultiRespDL
+# MRNet
 [MRNet - A Deep Learning Based Multitasking
 Model for Respiration Rate Estimation in Practical
 Settings]
