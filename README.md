@@ -6,7 +6,7 @@ Settings]
 ## Research
 
 ### Architecture
-The architecture consist three blocks Encoder (F1), Decoder (F2), and IncResNet with Dense Layer (F3) as shown in figure below:
+The architecture consist three blocks Encoder (B1), Decoder (B2), and IncResNet with Dense Layer (B3) as shown in figure below:
 <p align="center">
   <image src = 'https://github.com/Acrophase/MultiRespDL/blob/main/plot/Model_diag_v2_crop.png'>
 </p>
